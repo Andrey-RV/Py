@@ -11,7 +11,7 @@ class TicTacToe:
         linha=int(input("Digite em qual linha deseja jogar: "))
         coluna=int(input("Digite em qual coluna deseja jogar: "))
         while self.linhas[linha-1][coluna-1]!="_":
-            print("A posição já está preenchida. Por favor, joga selecione casa desocupada")
+            print("A posição já está preenchida. Por favor, selecione casa desocupada")
             linha=int(input("Digite em qual linha deseja jogar: "))
             coluna=int(input("Digite em qual coluna deseja jogar: "))
         self.linhas[linha-1][coluna-1]=self.identificacao
@@ -35,6 +35,14 @@ class TicTacToe:
         cls.diagonais.append([cls.linhas[0][2], cls.linhas[1][1], cls.linhas[2][0]])
 
     @classmethod
+    def checar_empate(cls):
+        if "_" not in TicTacToe.linhas[0] and "_" not in TicTacToe.linhas[1] and "_" not in TicTacToe.linhas[2]:
+            return True
+    
+    def registrar_empate(self):
+        print(f"Empate, o placar está  {p1.quantas_vitorias()} para o jogador 1, e {p2.quantas_vitorias()} para o jogador 2\n")
+
+    @classmethod
     def checar_vitoria(cls):
         if (cls.O in cls.linhas or cls.O in cls.colunas or cls.O in cls.diagonais):
             if p1.identificacao=="O":
@@ -50,10 +58,15 @@ class TicTacToe:
             return "X"
         else:
             return "next!"
+    
+    def registrar_vitoria(self):
+        print(f"Parabéns!, o placar está  {p1.quantas_vitorias()} para o jogador 1, e {p2.quantas_vitorias()} para o jogador 2\n")
 
     @classmethod
     def limpa_tabuleiro(cls):
-        cls.linhas = [["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
+        cls.linhas=[["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
+        cls.colunas=[["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
+        cls.diagonais=[["_", "_", "_"], ["_", "_", "_"]]
 
 class Jogador(TicTacToe):
     def __init__(self):
@@ -85,23 +98,28 @@ system('cls')
 
 while continuar_o_jogo=='S' or continuar_o_jogo=="s":
     while True:
+        system('cls')
         print("Sua vez de jogar, jogador1!")
         TicTacToe.imprime_tabuleiro()
         p1.salva_linhas()
         TicTacToe.salva_colunas()
         TicTacToe.salva_diagonais()
-        system('cls')
         if TicTacToe.checar_vitoria()!="next!":
+            p1.registrar_vitoria()
             break
+        system('cls')
+        if TicTacToe.checar_empate():
+            p1.registrar_empate()
+            break
+
         print("Sua vez de jogar, jogador2!")
         TicTacToe.imprime_tabuleiro()
         p2.salva_linhas()
-        system('cls')
-        if TicTacToe.checar_vitoria()!="next!":
-            break
         TicTacToe.salva_colunas()
         TicTacToe.salva_diagonais()
-
-    print(f"Parabéns!, o placar está  {p1.quantas_vitorias()} para o jogador 1, e {p2.quantas_vitorias()} para o jogador 2\n")
+        if TicTacToe.checar_vitoria()!="next!":
+            p2.registrar_vitoria()
+            break
+    
     continuar_o_jogo=input("Deseja continuar o jogo? Insira 'S' ou 'N': ")
     TicTacToe.limpa_tabuleiro()
