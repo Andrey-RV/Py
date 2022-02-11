@@ -1,4 +1,5 @@
 from os import system
+from random import randint
 
 class TicTacToe:
     O=["O", "O", "O"]
@@ -89,9 +90,23 @@ class Jogador(TicTacToe):
     def quantas_vitorias(self):
         return self.qtd_de_vitorias
 
+class Computador(Jogador):
+    def salva_linhas(self):
+        linha=randint(0,3)
+        coluna=randint(0,3)
+        while self.linhas[linha-1][coluna-1]!="_":
+            linha=randint(0,3)
+            coluna=randint(0,3)
+        self.linhas[linha-1][coluna-1]=self.identificacao
+
+
+modo_de_jogo=input("Insira '1' se deseja jogar contra o computador, ou '2' se deseja jogar contra um amigo: ")
+if modo_de_jogo=="1":
+    p2=Computador()
+elif modo_de_jogo=="2":
+    p2=Jogador()
 
 p1=Jogador()
-p2=Jogador()
 Jogador.escolha()
 continuar_o_jogo='S'
 system('cls')
