@@ -8,8 +8,8 @@ class Tabuleiro:
     O=["O", "O", "O"]
     X=["X", "X", "X"]
     linhas = [["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
-    colunas = []
-    diagonais = []
+    colunas = [["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
+    diagonais = [["_", "_", "_"], ["_", "_", "_"]]
 
     @classmethod
     def imprime_tabuleiro(cls):
@@ -96,7 +96,8 @@ class Humano(Jogador):
 
 class Computador(Jogador):
 
-    def identificiacao(staticmethod):
+    @staticmethod
+    def identificiacao():
         escolha=input("Deseja jogar com X ou O? ")
         if escolha=="O":
             p1.identificacao="O"
