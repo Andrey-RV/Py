@@ -2,9 +2,9 @@ from os import system
 from random import randint
 from dataclasses import dataclass
 
+
 @dataclass
 class Tabuleiro:
-
     O=["O", "O", "O"]
     X=["X", "X", "X"]
     linhas = [["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
@@ -33,19 +33,8 @@ class Tabuleiro:
         cls.colunas=[["_", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
         cls.diagonais=[["_", "_", "_"], ["_", "_", "_"]]
 
-    @classmethod
-    def salva_colunas(cls):
-        cls.colunas.append([cls.linhas[0][0], cls.linhas[1][0], cls.linhas[2][0]])
-        cls.colunas.append([cls.linhas[0][1], cls.linhas[1][1], cls.linhas[2][1]])
-        cls.colunas.append([cls.linhas[0][2], cls.linhas[1][2], cls.linhas[2][2]])
-    
-    @classmethod
-    def salva_diagonais(cls):
-        cls.diagonais.append([cls.linhas[0][0], cls.linhas[1][1], cls.linhas[2][2]])
-        cls.diagonais.append([cls.linhas[0][2], cls.linhas[1][1], cls.linhas[2][0]])
 
 class Jogador:
-
     def __init__(self):
         self.identificacao=""
         self.qtd_de_vitorias=0
@@ -73,8 +62,8 @@ class Jogador:
                 p2.qtd_de_vitorias+=1
         print(f"Parabéns, o placar está {p1.quantas_vitorias()} para o jogador 1 e {p2.quantas_vitorias()} para o jogador 2") 
 
-class Humano(Jogador):
 
+class Humano(Jogador):
     @staticmethod
     def identificiacao():
         escolha=input("O jogador 1 será O ou X? ")
@@ -85,7 +74,7 @@ class Humano(Jogador):
             p1.identificacao="X"
             p2.identificacao="O"
 
-    def salva_linhas(self):
+    def salva_elemento(self):
         linha=int(input("Digite em qual linha deseja jogar: "))
         coluna=int(input("Digite em qual coluna deseja jogar: "))
         while Tabuleiro.linhas[linha-1][coluna-1]!="_":
@@ -93,9 +82,13 @@ class Humano(Jogador):
             linha=int(input("Digite em qual linha deseja jogar: "))
             coluna=int(input("Digite em qual coluna deseja jogar: "))
         Tabuleiro.linhas[linha-1][coluna-1]=self.identificacao
+        Tabuleiro.colunas.append([Tabuleiro.linhas[0][0], Tabuleiro.linhas[1][0], Tabuleiro.linhas[2][0]])
+        Tabuleiro.colunas.append([Tabuleiro.linhas[0][1], Tabuleiro.linhas[1][1], Tabuleiro.linhas[2][1]])
+        Tabuleiro.colunas.append([Tabuleiro.linhas[0][2], Tabuleiro.linhas[1][2], Tabuleiro.linhas[2][2]])
+        Tabuleiro.diagonais.append([Tabuleiro.linhas[0][0], Tabuleiro.linhas[1][1], Tabuleiro.linhas[2][2]])
+        Tabuleiro.diagonais.append([Tabuleiro.linhas[0][2], Tabuleiro.linhas[1][1], Tabuleiro.linhas[2][0]])
 
 class Computador(Jogador):
-
     @staticmethod
     def identificiacao():
         escolha=input("Deseja jogar com X ou O? ")
@@ -106,47 +99,49 @@ class Computador(Jogador):
             p1.identificacao="X"
             p2.identificacao="O"
 
-    def salva_linhas(self):
-        linha=randint(0,3)
-        coluna=randint(0,3)
-        while Tabuleiro.linhas[linha-1][coluna-1]!="_":
-            linha=randint(0,3)
-            coluna=randint(0,3)
-        Tabuleiro.linhas[linha-1][coluna-1]=self.identificacao
+    def salva_elemento(self):
+        linha=randint(0,2)
+        coluna=randint(0,2)
+        while Tabuleiro.linhas[linha][coluna]!="_":
+            linha=randint(0,2)
+            coluna=randint(0,2)
+        Tabuleiro.linhas[linha][coluna]=self.identificacao
+        Tabuleiro.colunas.append([Tabuleiro.linhas[0][0], Tabuleiro.linhas[1][0], Tabuleiro.linhas[2][0]])
+        Tabuleiro.colunas.append([Tabuleiro.linhas[0][1], Tabuleiro.linhas[1][1], Tabuleiro.linhas[2][1]])
+        Tabuleiro.colunas.append([Tabuleiro.linhas[0][2], Tabuleiro.linhas[1][2], Tabuleiro.linhas[2][2]])
+        Tabuleiro.diagonais.append([Tabuleiro.linhas[0][0], Tabuleiro.linhas[1][1], Tabuleiro.linhas[2][2]])
+        Tabuleiro.diagonais.append([Tabuleiro.linhas[0][2], Tabuleiro.linhas[1][1], Tabuleiro.linhas[2][0]])
+
 
 p1=Humano()
-modo_de_jogo=input("Insira '1' se deseja jogar solo, ou '2' se deseja jogar contra outra pessoa: ")
-if modo_de_jogo=="1":
-    p2=Computador()
-elif modo_de_jogo=="2":
-    p2=Humano()
-
+modo_de_jogo=input("Insira '1' se deseja jogar solo, ou '2' se deseja jogar com outra pessoa: ")
+p2=Computador() if modo_de_jogo=="1" else Humano()
 p2.identificiacao()
 continuar_o_jogo='S'
-system('cls')
 
 while continuar_o_jogo=='S' or continuar_o_jogo=="s":
     while True:
         system('cls')
         print("Sua vez de jogar, jogador1!")
         Tabuleiro.imprime_tabuleiro()
-        p1.salva_linhas()
-        Tabuleiro.salva_colunas()
-        Tabuleiro.salva_diagonais()
+        p1.salva_elemento()
         if Tabuleiro.checa_o_tabuleiro()!="next!":
+            system('cls')
+            Tabuleiro.imprime_tabuleiro()
             p1.registra_vitoria()
             break
-        system('cls')
-        if Jogador.checa_empate():
+        elif Jogador.checa_empate():
+            system('cls')
+            Tabuleiro.imprime_tabuleiro()
             p1.registra_empate()
             break
-
+        system('cls')
         print("Sua vez de jogar, jogador2!")
         Tabuleiro.imprime_tabuleiro()
-        p2.salva_linhas()
-        Tabuleiro.salva_colunas()
-        Tabuleiro.salva_diagonais()
+        p2.salva_elemento()
         if Tabuleiro.checa_o_tabuleiro()!="next!":
+            system('cls')
+            Tabuleiro.imprime_tabuleiro()
             p2.registra_vitoria()
             break
     
