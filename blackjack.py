@@ -1,4 +1,4 @@
-from random import randint
+from random import SystemRandom
 from os import system
 from art import logo
 
@@ -9,10 +9,10 @@ def mostrar_pontuacao(minha_mao, pontuacao, mao_pc, pontuacao_pc):
 
 
 def cavar_carta(minha_mao, mao_pc, cartas, pontuacao, pontuacao_pc):
-    minha_mao.append(cartas[randint(0, len(cartas)-1)])
+    minha_mao.append(cartas[random.randint(0, len(cartas)-1)])
     cartas.remove(minha_mao[-1])
     if pontuacao_pc<pontuacao and pontuacao<=21:
-        mao_pc.append(cartas[randint(0, len(cartas)-1)])
+        mao_pc.append(cartas[random.randint(0, len(cartas)-1)])
         cartas.remove(mao_pc[-1])
         return True
     return False
@@ -21,7 +21,7 @@ def cavar_carta(minha_mao, mao_pc, cartas, pontuacao, pontuacao_pc):
 def pc_cava(cartas, mao_pc):
     contagem_de_cartas_cavadas_pc=0
     if pontuacao<=21:
-        mao_pc.append(cartas[randint(0, len(cartas)-1)])
+        mao_pc.append(cartas[random.randint(0, len(cartas)-1)])
         cartas.remove(mao_pc[-1])
         contagem_de_cartas_cavadas_pc+=1
     return contagem_de_cartas_cavadas_pc
@@ -55,16 +55,20 @@ def vitoria(minha_mao, pontuacao, pontuacao_pc):
 
 continuar_a_jogar=True
 while continuar_a_jogar:
+    random=SystemRandom()
     cartas = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    minha_mao=[]
+    mao_pc=[]
     system('cls')
     print(logo)
-    minha_mao=[cartas[randint(0, len(cartas)-1)], cartas[randint(0, len(cartas)-1)]]
+    minha_mao.append(cartas[random.randint(0, len(cartas)-1)])
+    minha_mao.append(cartas[random.randint(0, len(cartas)-1)])
     while minha_mao[1]==minha_mao[0]:
-        minha_mao[1]=randint(0, len(cartas)-1)
+        minha_mao[1]=random.randint(0, len(cartas)-1)
     pontuacao=minha_mao[0]+minha_mao[1]
     cartas.remove(minha_mao[0])
     cartas.remove(minha_mao[1])
-    mao_pc=[cartas[randint(0, len(cartas)-1)]]
+    mao_pc=[cartas[random.randint(0, len(cartas)-1)]]
     pontuacao_pc=mao_pc[0]
     cartas.remove(mao_pc[0])
     mostrar_pontuacao(minha_mao, pontuacao, mao_pc, pontuacao_pc)
