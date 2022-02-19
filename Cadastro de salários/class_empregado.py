@@ -10,7 +10,7 @@ class Empregado:
         self.valor_hora_extra_1 = {}
         self.valor_hora_extra_2 = {}
         self.tirou_ferias = {}
-        self.recebeu_bonificacoes = {}
+        self.bonificacoes = {}
         self.valor_bonificacoes = {}
         self.taxa_hora_extra_1={"janeiro":1.5, "fevereiro":1.5, "março":1.5, "abril":1.5, "maio":1.5,  "junho":1.5, "julho":1.5, "agosto":1.5, "setembro":1.5, "outubro":1.5, "novembro":1.5, "dezembro":1.5,}
         self.taxa_hora_extra_2={"janeiro":2, "fevereiro":2, "março":2, "abril":2, "maio":2, "junho":2, "julho":2, "agosto":2, "setembro":2, "outubro":2, "novembro":2, "dezembro":2,}
@@ -44,7 +44,7 @@ class Empregado:
         return True
 
     
-    def cadastrar_salario_base(self):
+    def cadastrar_salario_base(self, mes):
         if len(self.salario_base)>0:
             escolha_salario=input(f"Deseja alterar o salário de {self.salario_base[meses[meses.index(mes)-1]]}? 'S' ou 'N': ")
             if escolha_salario=='S':
@@ -55,33 +55,33 @@ class Empregado:
             self.salario_base[mes]=float(input("\nQual o valor de seu salário base? R$"))
 
     
-    def checar_bonificacoes(self):
+    def recebeu_bonificacoes(self):
         bonificacao=input(f"\nO funcionário(a) {self.nome} recebeu alguma bonificação esse mês? 'S' ou 'N': ")
         if bonificacao=="S":
             return True
         return False
 
 
-    def cadastrar_bonificacoes(self):
+    def cadastrar_bonificacoes(self, mes):
         extra_1=float(input("\nQuantas o funcionário recebeu de bonificações? "))
         self.valor_bonificacoes[mes]=extra_1
 
 
-    def checar_hora_extras(self):
+    def fez_hora_extra(self):
         horas_extras=input(f"\nO funcionário(a) {self.nome} fez horas extras neste mês? 'S' ou 'N': ")
         if horas_extras=="S":
             return True
         return False
     
 
-    def checar_taxas_hora_extra(self):
+    def taxa_hora_extra_nao_eh_padrao(self):
         mudar_porcentagem=input("""Por padrão, as taxas mínimas de horas extras são de 50% para jornadas de segunda a sábado e 100% para domigos e feriados. Deseja alterar as porcentagens? 'S' ou 'N': """)
         if mudar_porcentagem=="S":
             return True
         return False
     
 
-    def cadastrar_porcentagem_extra(self):
+    def cadastrar_porcentagem_extra(self, mes):
         self.taxa_hora_extra_1[mes]=float(input("Insira a porcentagem para jornadas de segunda a sábado: "))
         while self.taxa_hora_extra_1[mes]<50:
             self.taxa_hora_extra_1[mes]=float(input("Você está inserindo um valor menor do que o permitido. Por favor, insira uma taxa de hora extra maior ou igual a 50%: "))
@@ -92,7 +92,7 @@ class Empregado:
         self.taxa_hora_extra_2[mes]=1+self.taxa_hora_extra_2[mes]/100
     
 
-    def cadastrar_valor_hora_extra(self):
+    def cadastrar_valor_hora_extra(self, mes):
         extra_1=int(input("\nQuantas horas extras foram feitas de segunda a sábado? "))
         extra_2=int(input("Quantas horas extras foram feitas aos domingos ou feriados? "))
         self.valor_hora_extra_1[mes]=extra_1*self.taxa_hora_extra_1[mes]
