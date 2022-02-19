@@ -1,7 +1,4 @@
-#Programa de cadastro de salário de funcionários (em progresso)
-
-from os import system
-
+meses=("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
 
 class Empregado:
 
@@ -14,9 +11,10 @@ class Empregado:
         self.valor_hora_extra_2 = {}
         self.tirou_ferias = {}
         self.recebeu_bonificacoes = {}
-        self.valor_bonificacoes = 0
+        self.valor_bonificacoes = {}
         self.taxa_hora_extra_1={"janeiro":1.5, "fevereiro":1.5, "março":1.5, "abril":1.5, "maio":1.5,  "junho":1.5, "julho":1.5, "agosto":1.5, "setembro":1.5, "outubro":1.5, "novembro":1.5, "dezembro":1.5,}
         self.taxa_hora_extra_2={"janeiro":2, "fevereiro":2, "março":2, "abril":2, "maio":2, "junho":2, "julho":2, "agosto":2, "setembro":2, "outubro":2, "novembro":2, "dezembro":2,}
+
 
     @staticmethod
     def registrar_num_de_funcionarios():
@@ -56,6 +54,18 @@ class Empregado:
         else:
             self.salario_base[mes]=float(input("\nQual o valor de seu salário base? R$"))
 
+    
+    def checar_bonificacoes(self):
+        bonificacao=input(f"\nO funcionário(a) {self.nome} recebeu alguma bonificação esse mês? 'S' ou 'N': ")
+        if bonificacao=="S":
+            return True
+        return False
+
+
+    def cadastrar_bonificacoes(self):
+        extra_1=float(input("\nQuantas o funcionário recebeu de bonificações? "))
+        self.valor_bonificacoes[mes]=extra_1
+
 
     def checar_hora_extras(self):
         horas_extras=input(f"\nO funcionário(a) {self.nome} fez horas extras neste mês? 'S' ou 'N': ")
@@ -87,27 +97,3 @@ class Empregado:
         extra_2=int(input("Quantas horas extras foram feitas aos domingos ou feriados? "))
         self.valor_hora_extra_1[mes]=extra_1*self.taxa_hora_extra_1[mes]
         self.valor_hora_extra_2[mes]=extra_2*self.taxa_hora_extra_2[mes]
-
-
-meses=("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
-
-funcionarios=[]
-for num in range(Empregado.registrar_num_de_funcionarios()):
-    funcionarios.append(Empregado(input(f"Digite o nome do(a) {num+1}º funcionário(a): ")))
-for mes in meses:
-    system('cls')
-    cadastro_mensal=input(f"\nDeseja prosseguir com o cadastro para o mês de {mes}? Insira 'S ou 'N': ")
-    if cadastro_mensal=='N':
-        continue
-    for funcionario in funcionarios:
-        system('cls')
-        if not funcionario.sera_cadastrado(funcionarios, mes):
-            continue
-        funcionario.cadastrar_salario_base()
-        if funcionario.checar_hora_extras():
-            if funcionario.checar_taxas_hora_extra():
-                funcionario.cadastrar_porcentagem_extra()
-            funcionario.cadastrar_valor_hora_extra()
-            
-
-
