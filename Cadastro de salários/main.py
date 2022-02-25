@@ -3,13 +3,17 @@ from class_empregado import Empregado, meses
 from openpyxl import Workbook, load_workbook
 import excel
 
+#TODO: ajustar o salvamento (TRUE/FALSE) de férias e bonificações
+
+work_book = load_workbook("Funcionarios.xlsx")
 
 funcionarios=[]
+
 for num in range(Empregado.registrar_num_de_funcionarios()):
     funcionarios.append(Empregado(input(f"Digite o nome do(a) {num+1}º funcionário(a): ")))
 
-excel.salvar_funcionarios_no_arquivo(funcionarios)
-excel.salvar_arquivo()
+excel.salvar_funcionarios_no_arquivo(work_book, funcionarios, meses)
+excel.salvar_arquivo(work_book)
 
 for mes in meses:
     system('cls')
