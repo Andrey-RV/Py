@@ -18,7 +18,7 @@ def move_turtles_to_the_initial_positions():
 
 
 def is_there_a_winner():
-    """Returns true if any of the turtles has already moved past y position y=220"""
+    """Returns False if any of the turtles has already moved past y position y=220"""
     for i in range(6):
         turtles[i].forward(random.randint(0, 10))
         if turtles[i].pos()[0]>=220:
