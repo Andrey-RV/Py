@@ -27,8 +27,8 @@ def is_there_a_winner():
             else:
                 print("You lost the bet.")
             print(f"The {turtles[i].color()[0]} turtle is the winner.")
-            return True
-    return False
+            return False
+    return True
 
 
 def player_won(turtle_winner):
