@@ -41,6 +41,12 @@ class Snake:
     def move_left(self):
         """Set the snake heading to 180 degrees"""
         self.segments[0].setheading(180)
+
+    def increase_size(self):
+        self.segments.append(turtle.Turtle(shape="square"))
+        self.segments[-1].color("white")
+        self.segments[-1].penup()
+    turtle.update()
     
     def collided_with_the_wall(self):
         if (
@@ -48,4 +54,10 @@ class Snake:
             self.segments[0].xcor()<-270 or self.segments[0].ycor()<-270
            ):
              return True
+        return False
+    
+    def collided_with_itself(self):
+        for segment in self.segments[1:]:
+            if self.segments[0].pos() == segment.pos():
+                return True
         return False
