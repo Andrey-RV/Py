@@ -7,40 +7,14 @@ class Wall():
         self.create_walls()
 
     def create_walls(self):
-        self.walls = [turtle.Turtle(shape="square") for x in range(120)]
-        self.create_right_walls()
-        self.create_left_walls()
-        self.create_upper_walls()
-        self.create_lower_walls()
+        self.walls = [turtle.Turtle(shape="square") for x in range(4)]
+        self.walls[0].goto(x=-300, y=0)
+        self.walls[1].goto(x=290, y=0)
+        self.walls[2].goto(x=0, y=300)
+        self.walls[3].goto(x=0, y=-290)
+        self.walls[0].turtlesize(stretch_wid=30, stretch_len=1)
+        self.walls[1].turtlesize(stretch_wid=30, stretch_len=1)
+        self.walls[2].turtlesize(stretch_wid=1, stretch_len=30)
+        self.walls[3].turtlesize(stretch_wid=1, stretch_len=30)
         for wall in self.walls:
             wall.color("white")
-
-    def create_right_walls(self):
-        y_coord = -295
-        for i in range(30):
-            self.walls[i].goto(x=-295, y=y_coord)
-            y_coord += 20
-    
-    def create_left_walls(self):
-        y_coord = -295
-        for i in range(30, 60):
-            self.walls[i].goto(x=285, y=y_coord)
-            y_coord += 20
-    
-    def create_upper_walls(self):
-        x_coord = -295
-        for i in range(90, 120):
-            self.walls[i].goto(x=x_coord, y=295)
-            x_coord += 20
-    
-    def create_lower_walls(self):
-        x_coord = -295
-        for i in range(60, 90):
-            self.walls[i].goto(x=x_coord, y=-285)
-            x_coord += 20
-        
-    def there_was_a_collision(self, snake):
-        for wall in self.walls:
-            if wall.distance(snake.segments[0].pos()) <= 15:
-                return True
-        return False 

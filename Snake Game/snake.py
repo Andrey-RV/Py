@@ -41,3 +41,11 @@ class Snake:
     def move_left(self):
         """Set the snake heading to 180 degrees"""
         self.segments[0].setheading(180)
+    
+    def collided_with_the_wall(self):
+        if (
+            self.segments[0].xcor()>280 or self.segments[0].ycor()>280 or
+            self.segments[0].xcor()<-270 or self.segments[0].ycor()<-270
+           ):
+             return True
+        return False
