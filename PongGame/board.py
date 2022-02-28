@@ -13,7 +13,7 @@ class Board(turtle.Turtle):
 
     def score_board_setup(self):
         turtle.tracer(0)
-        self.goto(x=-70, y=220)
+        self.goto(x=-45, y=220)
         self.write(arg=f"{self.left_player_score}", align="center", font=('Pong Score', 40,'normal'))
         self.goto(x=70, y=220)
         self.write(arg=f"{self.right_player_score}", align="center", font=('Pong Score', 40,'normal'))
