@@ -1,6 +1,6 @@
 from random import SystemRandom
 from os import system
-from art import logo
+from BlackJack.art import logo
 
 
 def mostrar_pontuacao(minha_mao, pontuacao, mao_pc, pontuacao_pc):
