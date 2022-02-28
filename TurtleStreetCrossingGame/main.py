@@ -9,7 +9,6 @@ screen.setup(width=600, height=600)
 screen.tracer(0)
 
 turtle = Player()
-cars = []
 scoreboard = Scoreboard()
 
 screen.listen()
@@ -19,10 +18,9 @@ game_is_on = True
 loop_number = 0
 while game_is_on:
     if loop_number%6 == 0:
-        cars.append(CarManager())
-    for car in cars:
-        car.move()
-    if turtle.hit_a_car(cars):
+        CarManager.create_a_car()
+    CarManager.move_the_cars()
+    if turtle.hit_a_car(CarManager.cars):
         scoreboard.game_over()
         game_is_on = False
     if turtle.won():

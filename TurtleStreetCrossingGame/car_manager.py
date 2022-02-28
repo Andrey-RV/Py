@@ -8,7 +8,9 @@ MOVE_INCREMENT = 10
 
 
 class CarManager(Turtle):
+    cars = []
     speed_increment = 0
+
     def __init__(self):
         super().__init__()
         self.shape("square")
@@ -18,8 +20,14 @@ class CarManager(Turtle):
         self.penup()
         self.goto(x=320 , y=random.randint(-250, 250))
     
-    def move(self):
-        self.forward(STARTING_MOVE_DISTANCE + self.speed_increment)
+    @classmethod
+    def create_a_car(cls):
+        cls.cars.append(CarManager())
+
+    @classmethod
+    def move_the_cars(cls):
+        for car in cls.cars:
+            car.forward(STARTING_MOVE_DISTANCE + cls.speed_increment)
 
     @classmethod
     def increase_speed(cls):
