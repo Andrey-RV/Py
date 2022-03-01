@@ -16,14 +16,13 @@ def main():
         my_snake = Snake()
         food = Food()
         
-        game_is_on=True
         screen.listen()
         screen.onkey(my_snake.move_up, "Up")
         screen.onkey(my_snake.move_down, "Down")
         screen.onkey(my_snake.move_left, "Left")
         screen.onkey(my_snake.move_right, "Right")
 
-        while game_is_on:
+        while True:
             my_snake.move_forward()
             if food.the_food_was_eaten(by_whom=my_snake):
                 board.increase_score()
@@ -32,6 +31,7 @@ def main():
                 choice = screen.textinput("YOU LOSE!", f"Your final score is {board.score}.\nDo you want to play again? Enter 'yes' or 'no': ")
                 if choice == "yes":
                     screen.clear()
+                    board.update_highest_score()
                     break
                 else:
                     return None
