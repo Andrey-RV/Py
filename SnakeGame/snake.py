@@ -61,3 +61,9 @@ class Snake:
             if self.segments[0].pos() == segment.pos():
                 return True
         return False
+    
+    def reset_snake(self):
+        for segment in self.segments:
+            segment.goto(1000, 1000)
+        self.segments.clear()
+        self.snake_setup()
