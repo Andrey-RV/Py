@@ -3,7 +3,8 @@ import time
 
 class Board(Turtle):
     score = 0
-    highest_score = 0
+    with open("highest_score.txt") as f:
+        highest_score = int(f.read())
 
     def __init__(self):
         super().__init__()
@@ -43,6 +44,8 @@ class Board(Turtle):
     def update_highest_score(cls,):
         if cls.score > Board.highest_score:
             cls.highest_score = cls.score
+        with open("highest_score.txt", "w") as f:
+            f.write(str(cls.highest_score))
         cls.score = 0
 
     

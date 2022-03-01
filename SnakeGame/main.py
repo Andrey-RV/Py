@@ -32,4 +32,5 @@ while True:
             board.update_scoreboard()
             my_snake.reset_snake()
         else:
+            board.update_highest_score()
             break
