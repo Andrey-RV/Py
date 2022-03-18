@@ -1,9 +1,11 @@
 class BlackJack:
+    """Possui como atributo único uma lista com as cartas que serão utilizadas no jogo, além de métodos relacionados à analise das pontuações finais, discriminando os venceores, empates e perdedores."""
     def __init__(self, baralho):
         self.cartas = baralho
 
     @staticmethod
     def contabilizar_pontos_dealer_nao_estourou(pontos_do_dealer, *pontuacoes):
+        """Imprime os vencedores, empates e perdedores após comparar seus pontos com os pontos do dealer."""
         vencedores = []
         empates = []
         perdedores = []
@@ -23,6 +25,7 @@ class BlackJack:
     
     @staticmethod
     def contabilizar_pontos_dealer_estourou(pontos_do_dealer, *pontuacoes):
+        """Imprime os vencedores e perdedores após comparar seus pontos com os pontos do dealer."""
         vencedores = []
         perdedores = []
         for i in range(len(pontuacoes)):
