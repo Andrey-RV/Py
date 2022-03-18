@@ -33,3 +33,7 @@ class Dealer(Jogador):
             self.pontuacao += 1
         else:
             self.pontuacao += self.mao[-1]
+        
+    def reiniciar_o_jogo(self, cartas):
+        self.mao = []
+        self.mao_inicial(cartas)

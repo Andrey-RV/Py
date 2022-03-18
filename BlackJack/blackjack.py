@@ -7,13 +7,13 @@ class BlackJack:
         vencedores = []
         empates = []
         perdedores = []
-        for pontuacao in pontuacoes:
-            if pontuacao > pontos_do_dealer and pontuacao <= 21:
-                vencedores.append(pontuacoes.index(pontuacao))
-            elif pontuacao == pontos_do_dealer and pontuacao:
-                empates.append(pontuacoes.index(pontuacao))
+        for i in range(len(pontuacoes)):
+            if pontuacoes[i] > pontos_do_dealer and pontuacoes[i] <= 21:
+                vencedores.append(i)
+            elif pontuacoes[i] == pontos_do_dealer and pontuacoes[i] <= 21:
+                empates.append(i)
             else:
-                perdedores.append(pontuacoes.index(pontuacao))
+                perdedores.append(i)
         for vencedor in vencedores:
             print(f"    O jogador {vencedor+1} ganhou")
         for empate in empates:
@@ -25,11 +25,11 @@ class BlackJack:
     def contabilizar_pontos_dealer_estourou(pontos_do_dealer, *pontuacoes):
         vencedores = []
         perdedores = []
-        for pontuacao in pontuacoes:
-            if pontuacao < pontos_do_dealer and pontuacao <= 21:
-                vencedores.append(pontuacoes.index(pontuacao))
+        for i in range(len(pontuacoes)):
+            if pontuacoes[i] < pontos_do_dealer and pontuacoes[i] <= 21:
+                vencedores.append(i)
             else:
-                perdedores.append(pontuacoes.index(pontuacao))
+                perdedores.append(i)
         for vencedor in vencedores:
             print(f"    O jogador {vencedor+1} ganhou")
         for perdedor in perdedores:
